@@ -36,7 +36,10 @@ export default async function DashboardPage() {
     <DashboardClient
       projects={projectsRes.data || []}
       clients={clientsRes.data || []}
-      alerts={alertsRes.data || []}
+      alerts={(alertsRes.data || []).map(a => ({
+        ...a,
+        project: Array.isArray(a.project) ? a.project[0] ?? null : a.project,
+      }))}
     />
   )
 }
