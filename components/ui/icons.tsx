@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 
-interface IcProps extends React.SVGProps<SVGSVGElement> {
+interface IcProps extends Omit<React.SVGProps<SVGSVGElement>, 'stroke'> {
   size?: number
   stroke?: number
   d: string
@@ -23,7 +23,7 @@ const Ic = ({ d, size = 16, stroke = 1.6, ...rest }: IcProps) => (
   </svg>
 )
 
-type P = { size?: number; style?: React.CSSProperties; className?: string }
+type P = { size?: number; stroke?: number; style?: React.CSSProperties; className?: string }
 
 export const Icons = {
   Layers:   (p: P) => <Ic {...p} d="M12 3 3 8l9 5 9-5-9-5ZM3 13l9 5 9-5M3 18l9 5 9-5" />,
