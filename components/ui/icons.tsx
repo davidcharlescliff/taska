@@ -34,7 +34,7 @@ export const Icons = {
   Search:   (p: P) => <Ic {...p} d="M21 21l-4.35-4.35M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" />,
   Plus:     (p: P) => <Ic {...p} d="M12 5v14M5 12h14" />,
   Check:    (p: P) => <Ic {...p} stroke={2.2} d="M5 12l5 5L20 7" />,
-  X:        (p: P) => <Ic {...p} d="M6 6l12 12M18 6 6 18" />,
+  X:        (p: P) => <Ic stroke={2} {...p} d="M6 6l12 12M18 6 6 18" />,
   Arrow:    (p: P) => <Ic {...p} d="M5 12h14M13 6l6 6-6 6" />,
   Back:     (p: P) => <Ic {...p} d="M19 12H5M11 18 5 12l6-6" />,
   More:     (p: P) => <Ic {...p} stroke={2.2} d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM19 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2ZM5 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />,
