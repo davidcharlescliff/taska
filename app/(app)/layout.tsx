@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { AppShell } from '@/components/layout/app-shell'
-import { canUseApp } from '@/types'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -16,11 +15,6 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     .single()
 
   if (!profile) redirect('/auth/login')
-
-  // Hard paywall — redirect to billing page (not a modal, full block)
-  if (!canUseApp(profile)) {
-    redirect('/billing')
-  }
 
   // Sidebar counts
   const [projectsRes, tasksRes] = await Promise.all([

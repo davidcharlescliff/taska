@@ -9,7 +9,7 @@ export interface Profile {
   avatar_url: string | null
   stripe_customer_id: string | null
   stripe_subscription_id: string | null
-  plan: 'trial' | 'pro' | 'expired'
+  plan: 'trial' | 'pro' | 'expired' | 'past_due'
   trial_ends_at: string | null
   created_at: string
   updated_at: string
@@ -81,10 +81,11 @@ export interface DueAlert {
 
 // ─── Stripe / plan helpers ────────────────────────────────────
 
-export type PlanStatus = 'trial' | 'pro' | 'expired'
+export type PlanStatus = 'trial' | 'pro' | 'expired' | 'past_due'
 
 export function planStatus(profile: Profile): PlanStatus {
   if (profile.plan === 'pro') return 'pro'
+  if (profile.plan === 'past_due') return 'past_due'
   if (profile.plan === 'trial' && profile.trial_ends_at) {
     const ends = new Date(profile.trial_ends_at)
     if (ends > new Date()) return 'trial'
@@ -93,6 +94,14 @@ export function planStatus(profile: Profile): PlanStatus {
   return 'expired'
 }
 
+export const PLAN_MESSAGES: Record<PlanStatus, string | null> = {
+  trial: null,
+  pro: null,
+  expired: 'Your free trial has ended. Subscribe to continue using Taska.',
+  past_due: 'Your last payment failed. Please update your payment details to continue using Taska.',
+}
+
 export function canUseApp(profile: Profile): boolean {
-  return planStatus(profile) !== 'expired'
+  const status = planStatus(profile)
+  return status !== 'expired' && status !== 'past_due'
 }
