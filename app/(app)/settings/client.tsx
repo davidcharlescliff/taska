@@ -150,7 +150,7 @@ export function SettingsClient({ profile }: { profile: Profile }) {
               <Icons.Star size={12} />
               {status === 'pro' ? 'Pro' : status === 'trial' ? 'Free trial' : status === 'past_due' ? 'Payment failed' : 'Expired'}
             </span>
-            <span style={{ fontSize: 13, color: 'var(--ink-3)' }}>
+            <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--ink-3)' }}>
               {status === 'pro' && 'Taska Pro — £4.99/month'}
               {status === 'trial' && profile.trial_ends_at && `Trial ends ${new Date(profile.trial_ends_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`}
               {status === 'expired' && 'Your free trial has ended. Subscribe to continue using Taska.'}
@@ -168,6 +168,13 @@ export function SettingsClient({ profile }: { profile: Profile }) {
               {loading ? 'Loading…' : 'Upgrade — £4.99/month'}
             </button>
           )}
+        </div>
+
+        {/* Legal */}
+        <div className="settings-section" style={{ display: 'flex', gap: 20 }}>
+          <a href="/privacy" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--ink-3)', textDecoration: 'none' }}>Privacy Policy</a>
+          <a href="/terms" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--ink-3)', textDecoration: 'none' }}>Terms of Service</a>
+          <a href="/cookies" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'var(--ink-3)', textDecoration: 'none' }}>Cookie Notice</a>
         </div>
       </div>
     </>

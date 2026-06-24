@@ -25,22 +25,56 @@ export function BillingClient({ profile }: { profile: Profile }) {
     else setLoading(false)
   }
 
+  if (status === 'past_due' || status === 'expired') {
+    const isPastDue = status === 'past_due'
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', gap: 16, minHeight: '70vh', maxWidth: 480, margin: '0 auto' }}>
+        <Icons.AlertTriangle size={48} style={{ color: 'var(--red, #e53)' }} />
+        {message && (
+          <p style={{ fontSize: 20, fontWeight: 600 }}>
+            {isPastDue ? message : (
+              <>Your free trial has ended.<br />Subscribe to continue using Taska.</>
+            )}
+          </p>
+        )}
+        {isPastDue ? (
+          <button className="btn btn-primary" onClick={handlePortal} disabled={loading}>
+            <Icons.CreditCard size={14} />
+            {loading ? 'Loading…' : 'Update payment details'}
+          </button>
+        ) : (
+          <button className="btn btn-primary" onClick={handleUpgrade} disabled={loading}>
+            <Icons.Star size={14} />
+            {loading ? 'Loading…' : 'Subscribe — £4.99/month'}
+          </button>
+        )}
+      </div>
+    )
+  }
+
+  if (status === 'pro') {
+    return (
+      <div className="page-h" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 16, maxWidth: 480 }}>
+        <h1>Billing</h1>
+        <p style={{ color: 'var(--ink-3)', fontSize: 14 }}>You&apos;re on Taska Pro — £4.99/month.</p>
+
+        <button className="btn" onClick={handlePortal} disabled={loading}>
+          <Icons.CreditCard size={14} />
+          {loading ? 'Loading…' : 'Manage billing'}
+        </button>
+      </div>
+    )
+  }
+
   return (
     <div className="page-h" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 16, maxWidth: 480 }}>
       <h1>Billing</h1>
       {message && <p style={{ color: 'var(--ink-3)', fontSize: 14 }}>{message}</p>}
 
-      {status === 'past_due' ? (
-        <button className="btn btn-primary" onClick={handlePortal} disabled={loading}>
-          <Icons.CreditCard size={14} />
-          {loading ? 'Loading…' : 'Update payment details'}
-        </button>
-      ) : (
-        <button className="btn btn-primary" onClick={handleUpgrade} disabled={loading}>
-          <Icons.Star size={14} />
-          {loading ? 'Loading…' : 'Subscribe — £4.99/month'}
-        </button>
-      )}
+      <button className="btn btn-primary" onClick={handleUpgrade} disabled={loading}>
+        <Icons.Star size={14} />
+        {loading ? 'Loading…' : 'Subscribe — £4.99/month'}
+      </button>
     </div>
   )
 }
