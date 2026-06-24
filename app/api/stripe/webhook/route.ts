@@ -29,18 +29,21 @@ export async function POST(request: NextRequest) {
       const session = event.data.object as Stripe.Checkout.Session
       const userId = session.metadata?.user_id
       if (userId && session.subscription) {
-        await db.from('profiles').update({
-          plan: 'pro',
-          stripe_subscription_id: session.subscription as string,
-        }).eq('id', userId)
+        const { data: profile } = await db.from('profiles').select('plan').eq('id', userId).single()
+        if (profile?.plan !== 'beta') {
+          await db.from('profiles').update({
+            plan: 'pro',
+            stripe_subscription_id: session.subscription as string,
+          }).eq('id', userId)
+        }
       }
       break
     }
     case 'customer.subscription.created': {
       const sub = event.data.object as Stripe.Subscription
       if (sub.status === 'trialing') {
-        const { data: profile } = await db.from('profiles').select('id').eq('stripe_customer_id', sub.customer as string).single()
-        if (profile) {
+        const { data: profile } = await db.from('profiles').select('id, plan').eq('stripe_customer_id', sub.customer as string).single()
+        if (profile && profile.plan !== 'beta') {
           await db.from('profiles').update({
             plan: 'pro',
             stripe_subscription_id: sub.id,
@@ -51,24 +54,24 @@ export async function POST(request: NextRequest) {
     }
     case 'invoice.payment_succeeded': {
       const invoice = event.data.object as Stripe.Invoice
-      const { data: profile } = await db.from('profiles').select('id').eq('stripe_customer_id', invoice.customer as string).single()
-      if (profile) {
+      const { data: profile } = await db.from('profiles').select('id, plan').eq('stripe_customer_id', invoice.customer as string).single()
+      if (profile && profile.plan !== 'beta') {
         await db.from('profiles').update({ plan: 'pro' }).eq('id', profile.id)
       }
       break
     }
     case 'invoice.payment_failed': {
       const invoice = event.data.object as Stripe.Invoice
-      const { data: profile } = await db.from('profiles').select('id').eq('stripe_customer_id', invoice.customer as string).single()
-      if (profile) {
+      const { data: profile } = await db.from('profiles').select('id, plan').eq('stripe_customer_id', invoice.customer as string).single()
+      if (profile && profile.plan !== 'beta') {
         await db.from('profiles').update({ plan: 'past_due' }).eq('id', profile.id)
       }
       break
     }
     case 'customer.subscription.updated': {
       const sub = event.data.object as Stripe.Subscription
-      const { data: profile } = await db.from('profiles').select('id').eq('stripe_customer_id', sub.customer as string).single()
-      if (profile) {
+      const { data: profile } = await db.from('profiles').select('id, plan').eq('stripe_customer_id', sub.customer as string).single()
+      if (profile && profile.plan !== 'beta') {
         const active = sub.status === 'active' || sub.status === 'trialing'
         await db.from('profiles').update({
           plan: active ? 'pro' : 'expired',
@@ -79,8 +82,8 @@ export async function POST(request: NextRequest) {
     }
     case 'customer.subscription.deleted': {
       const sub = event.data.object as Stripe.Subscription
-      const { data: profile } = await db.from('profiles').select('id').eq('stripe_customer_id', sub.customer as string).single()
-      if (profile) {
+      const { data: profile } = await db.from('profiles').select('id, plan').eq('stripe_customer_id', sub.customer as string).single()
+      if (profile && profile.plan !== 'beta') {
         await db.from('profiles').update({ plan: 'expired', stripe_subscription_id: null }).eq('id', profile.id)
       }
       break

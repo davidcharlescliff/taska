@@ -148,16 +148,17 @@ export function SettingsClient({ profile }: { profile: Profile }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
             <span className="plan-tag">
               <Icons.Star size={12} />
-              {status === 'pro' ? 'Pro' : status === 'trial' ? 'Free trial' : status === 'past_due' ? 'Payment failed' : 'Expired'}
+              {status === 'beta' ? 'Beta' : status === 'pro' ? 'Pro' : status === 'trial' ? 'Free trial' : status === 'past_due' ? 'Payment failed' : 'Expired'}
             </span>
             <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--ink-3)' }}>
+              {status === 'beta' && 'Beta access'}
               {status === 'pro' && 'Taska Pro — £4.99/month'}
               {status === 'trial' && profile.trial_ends_at && `Trial ends ${new Date(profile.trial_ends_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}`}
               {status === 'expired' && 'Your free trial has ended. Subscribe to continue using Taska.'}
               {status === 'past_due' && 'Your last payment failed. Please update your payment details to continue using Taska.'}
             </span>
           </div>
-          {status === 'pro' || status === 'past_due' ? (
+          {status === 'beta' ? null : status === 'pro' || status === 'past_due' ? (
             <button className="btn" onClick={handlePortal} disabled={loading}>
               <Icons.CreditCard size={14} />
               {loading ? 'Loading…' : status === 'past_due' ? 'Update payment details' : 'Manage billing'}

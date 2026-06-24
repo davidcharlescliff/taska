@@ -52,6 +52,15 @@ export function BillingClient({ profile }: { profile: Profile }) {
     )
   }
 
+  if (status === 'beta') {
+    return (
+      <div className="page-h" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 16, maxWidth: 480 }}>
+        <h1>Billing</h1>
+        <p style={{ color: 'var(--ink-3)', fontSize: 14 }}>You have beta access — no subscription required.</p>
+      </div>
+    )
+  }
+
   if (status === 'pro') {
     return (
       <div className="page-h" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 16, maxWidth: 480 }}>
