@@ -792,8 +792,8 @@ button:disabled { cursor: default; }
 [data-density="compact"] .section { padding: 14px 18px; }
 
 /* ─── Auth pages ─── */
-.auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: var(--bg); padding: 24px; }
-.auth-box { width: 100%; max-width: 420px; background: var(--bg-card); border: 1px solid var(--line); border-radius: var(--r-4); padding: 40px; box-shadow: var(--shadow-2); }
+.auth-wrap { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #fff; padding: 24px; }
+.auth-box { width: 100%; max-width: 420px; background: #fff; border: 1px solid var(--line); border-radius: var(--r-4); padding: 40px; }
 .auth-wordmark { font-weight: 800; font-size: 26px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 32px; display: block; position: relative; }
 .auth-wordmark::after { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); margin-left: 3px; margin-bottom: 2px; vertical-align: baseline; }
 .auth-box h1 { margin: 0 0 6px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
