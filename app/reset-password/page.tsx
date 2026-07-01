@@ -33,7 +33,7 @@ export default function ResetPasswordPage() {
     return (
       <div className="auth-wrap" data-theme="light">
         <div className="auth-box" style={{ textAlign: 'center' }}>
-          <span className="auth-wordmark" style={{ display: 'block', textAlign: 'center' }}>Taska</span>
+          <img src="/taska-logo.svg" alt="Taska" className="auth-wordmark" />
           <h1 style={{ marginBottom: 12 }}>Password updated</h1>
           <p className="sub" style={{ marginBottom: 0 }}>
             Taking you to your dashboard…
@@ -46,7 +46,7 @@ export default function ResetPasswordPage() {
   return (
     <div className="auth-wrap" data-theme="light">
       <div className="auth-box">
-        <span className="auth-wordmark">Taska</span>
+        <img src="/taska-logo.svg" alt="Taska" className="auth-wordmark" />
         <h1>Set a new password</h1>
         <p className="sub">Choose a new password for your account.</p>
 

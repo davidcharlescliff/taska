@@ -105,7 +105,7 @@ function Sidebar({
       <div className="sb-spacer" />
 
       <div className="sb-brand-bottom">
-        <span className="wordmark">Taska</span>
+        <img src="/taska-logo.svg" alt="Taska" className="wordmark" />
         <span className="strap">a tidy home for freelance jobs</span>
       </div>
     </aside>

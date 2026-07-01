@@ -50,7 +50,7 @@ export default function LoginPage() {
   return (
     <div className="auth-wrap" data-theme="light">
       <div className="auth-box">
-        <span className="auth-wordmark">Taska</span>
+        <img src="/taska-logo.svg" alt="Taska" className="auth-wordmark" />
         <h1>Welcome back</h1>
         <p className="sub">Sign in to your account</p>
 

@@ -41,7 +41,7 @@ export default function SignupPage() {
     return (
       <div className="auth-wrap" data-theme="light">
         <div className="auth-box" style={{ textAlign: 'center' }}>
-          <span className="auth-wordmark" style={{ display: 'block', textAlign: 'center' }}>Taska</span>
+          <img src="/taska-logo.svg" alt="Taska" className="auth-wordmark" />
           <h1 style={{ marginBottom: 12 }}>Check your email</h1>
           <p className="sub" style={{ marginBottom: 0 }}>
             We sent a confirmation link to <strong>{email}</strong>. Click it to activate your account and start your free month.
@@ -54,9 +54,9 @@ export default function SignupPage() {
   return (
     <div className="auth-wrap" data-theme="light">
       <div className="auth-box">
-        <span className="auth-wordmark">Taska</span>
+        <img src="/taska-logo.svg" alt="Taska" className="auth-wordmark" />
         <h1>Start for free</h1>
-        <p className="sub">One month free — no credit card required. £4.99/month after.</p>
+        <p className="sub">30 day free trial<br />No credit card required. £4.99/month after</p>
 
         {error && <div className="auth-error">{error}</div>}
 
@@ -80,7 +80,7 @@ export default function SignupPage() {
         <form className="auth-form" onSubmit={signUp} style={{ marginTop: 16 }}>
           <div className="field-grp">
             <label>Your name</label>
-            <input value={name} onChange={e => setName(e.target.value)} placeholder="Robin Mendez" />
+            <input value={name} onChange={e => setName(e.target.value)} placeholder="John Denin" />
           </div>
           <div className="field-grp">
             <label>Email</label>
